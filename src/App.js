@@ -96,7 +96,7 @@ const Question = ({ saveAnswer, id }) => {
                 onChange={e => setValue(e.target.value)}
               />
             </TextInputWrapper>
-            <SmileyFaceButton type="submit">{`:)`}</SmileyFaceButton>
+            <SmileyFaceButton type="submit">{`>>`}</SmileyFaceButton>
           </FlexBlock>
         )}
       </form>

@@ -5,27 +5,36 @@ import { Pulsate } from "./pulsate";
 import { Position } from "./position";
 import { Circle } from "./circle";
 import { Rotate } from "./rotate";
+import { UnsplashImage } from "./unsplash-image";
 
 const ViewWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
+  overflow-x: hidden;
   background-color: ${({ bgColor }) => bgColor};
   position: relative;
 `;
 
 const Headline = styled.h1`
-  font-size: 3rem;
+  font-size: 6rem;
   font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
   z-index: 2;
-  top: 10%;
-  left: 5rem;
+  color: ${({ color }) => (color ? color : "white")};
 `;
 
-const ReflectedHeadline = styled(Headline)`
+const Topic = styled.h1`
+  font-size: 3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 2;
+`;
+
+const ReflectedTopic = styled(Topic)`
   transform: rotateY(180deg);
-  right: 8rem;
-  left: initial;
+`;
+
+const ImageWrapper = styled.div`
+  padding-top: 14rem;
 `;
 
 const shapeMap = {
@@ -33,16 +42,32 @@ const shapeMap = {
   square: Square
 };
 
-export const SimpleGeneratedPage = ({ headline, backgroundColor, shape }) => {
+export const SimpleGeneratedPage = ({
+  headline,
+  backgroundColor,
+  shape,
+  topic
+}) => {
   const ShapeComponent = shapeMap[shape];
   return (
     <ViewWrapper bgColor={backgroundColor}>
-      <Headline>{headline}</Headline>
-      <ReflectedHeadline>{headline}</ReflectedHeadline>
-      <Position top={40} left={40}>
+      <Position top={15} mobileTop={5} left={20} mobileLeft={25} zIndex={1}>
+        <Topic>{topic}</Topic>
+      </Position>
+      <Position top={15} mobileTop={15} right={20} mobileRight={25} zIndex={1}>
+        <ReflectedTopic>{topic}</ReflectedTopic>
+      </Position>
+      <Position top={50} left={20} zIndex={2}>
         <Pulsate>
           <Rotate>
             <Headline>{headline}</Headline>
+          </Rotate>
+        </Pulsate>
+      </Position>
+      <Position top={51} left={21} zIndex={1}>
+        <Pulsate>
+          <Rotate>
+            <Headline color="black">{headline}</Headline>
           </Rotate>
         </Pulsate>
       </Position>
@@ -50,6 +75,11 @@ export const SimpleGeneratedPage = ({ headline, backgroundColor, shape }) => {
         <Pulsate>
           <ShapeComponent size={10} />
         </Pulsate>
+      </Position>
+      <Position top={60} left={15} position="relative">
+        <ImageWrapper>
+          <UnsplashImage searchTerm={headline} />
+        </ImageWrapper>
       </Position>
     </ViewWrapper>
   );

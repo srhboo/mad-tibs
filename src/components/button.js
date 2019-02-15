@@ -26,7 +26,7 @@ export const SmileyFaceButton = styled.button`
   ${ButtonResetStyles};
   padding: 0.5rem;
   color: black;
-  font-size: 3rem;
+  font-size: 2rem;
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
